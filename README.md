@@ -33,7 +33,7 @@ Não se trata apenas de linhas de código; trata-se de **concretizar** o letrame
 
 Nosso logotipo consiste em dois elementos principais: o Símbolo e o Wordmark. Eles podem ser usados separadamente ou juntos: basta tão somente respeitar a licença.
 
-- **Símbolo:** Uma forma que, em termos de semiótica, representa a relação [fenomenológica](https://pt.wikipedia.org/wiki/Fenomenologia) que geralmente se tem ao adentrar à  [Ilha de Santa Catarina](https://pt.wikipedia.org/wiki/Ilha_de_Santa_Catarina). A referência à [Ponte Hercílio Luz](https://pt.wikipedia.org/wiki/Ponte_Herc%C3%ADlio_Luz), bem como uma abstrata representação do contorno viário que dá acesso ao bairro Carianos dinstinguem-se enquanto elementos principais. O gradiente transita de `#28aa6a` para `#25ac6c`.
+- **Símbolo:** Uma forma que, em termos de semiótica, representa a relação [fenomenológica](https://pt.wikipedia.org/wiki/Fenomenologia) que geralmente se tem ao adentrar à  [Ilha de Santa Catarina](https://pt.wikipedia.org/wiki/Ilha_de_Santa_Catarina). A referência à [Ponte Hercílio Luz](https://pt.wikipedia.org/wiki/Ponte_Herc%C3%ADlio_Luz), bem como uma abstrata representação do contorno viário que dá acesso ao bairro Carianos, dinstinguem-se enquanto elementos principais. O gradiente transita de `#28aa6a` para `#25ac6c`.
 - **Wordmark:** O nome "CARICAX" na fonte **Noto Serif**, com um gradiente que vai de `#fe6d03` para `#08c408`.
 
 > **Justificativa:**  
