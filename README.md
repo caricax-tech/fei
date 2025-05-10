@@ -15,7 +15,7 @@ A Caricax Information Technology surge da compreensão de que as tecnologias, ca
 
 ## 1. Em defesa do open source: Software as a Right
 
-Defender **Software como um Direito** exprime a compreensão de que o profissional da tecnologia, independentemente de senioridade, é, antes, um trabalhador, assim como agentes engajados com o desenvolvimento de *economias locais*.
+Defender **Software como um Direito** exprime a compreensão de que o profissional da tecnologia, independentemente de senioridade, é, antes, um trabalhador, assim como agentes engajados com o desenvolvimento de *economias locais* são.
 
 ``` java
 public Trabalhador(int id, String nome) throws Exception {
