@@ -8,10 +8,10 @@
 
 # MANIFESTO  
 
-A Caricax surge da compreensão de que as tecnologias, cada vez mais sofisticadas e inerentes à produção econômica atual, enquanto privilégio de poucos, mantém-se atrás de *paywalls* e softwares proprietários de usabilidade contraintuitiva.
+A Caricax Information Technology surge da compreensão de que as tecnologias, cada vez mais sofisticadas e inerentes à produção econômica atual, enquanto privilégio de poucos, mantém-se atrás de *paywalls* e softwares proprietários de usabilidade contraintuitiva.
 
 * Nossa missão é **democratizar** soluções de TI sofisticadas, tornando-as bem comum de Micro e Pequenas Empresas (MPEs). 
-> Esta introdução estabelece os valores centrais da organização, destacando o compromisso da Caricax com a democratização tecnológica, a transformação e impacto sociais. 
+> Esta introdução estabelece os valores centrais da organização, destacando o compromisso da Caricax IT com a democratização tecnológica, a transformação e impacto sociais. 
 
 ## 1. Em defesa do open source: Software as a Right
 
