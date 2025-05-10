@@ -26,7 +26,7 @@ public Trabalhador(int id, String nome) throws Exception {
 
 Não se trata apenas de linhas de código; trata-se de **concretizar** o letramento tecnológico do empreendedor local, libertando-o de oligopólios, que se definem pela mais antiquada das maneiras de recusa à adoção de abordagens  [_**human-first.**_](https://letmegooglethat.com/?q=human+first)
 > **Justificativa:**  
->Na era digital, as grandes corporações alienam o ser humano, transformando sua identidade e suas interações em mercadorias para lucro. Como o capital separa o trabalhador de seu produto, a tecnologia separa o indivíduo de sua própria essência. O software livre é uma revolta contra essa alienação: é a recusa de se submeter ao sistema, a reintegração do controle sobre o próprio ser, um chamado à **emancipação digital!**
+>Na era digital, as grandes corporações alienam o ser humano, transformando sua identidade e suas interações em mercadorias para lucro. Como o capital separa o trabalhador de seu produto, a tecnologia separa o indivíduo de sua própria essência. O software livre é uma revolta contra essa alienação: é a recusa de se submeter a um conjunto de práticas que atenta contra a possibilidade de autodeterminação do individuo; um chamado à **emancipação digital!**
 
 
 ### 2. Logo
