@@ -22,6 +22,6 @@ Ei, quiridx! Se liga no nosso papo. Se for pra usar o nome ou o logo da Caricax,
 
 * **Dá os crédito:** Se vais usar a marca, sejas gente boa e diz que é nossa. É só botar uma linhazinha lá no finzinho da página, na miúda. Tipo assim: "A marca Caricax e o desenho do logo são tudo coisa registrada da Caricax IT, do Carianos, passando a Seta, pra lá da Ressacada."
 
-* **Tás com Dúvida, Istepô?**
+* **Tás com dúvida, Istepô?**
 
 Se ainda tás com pulga atrás da orelha, manda um toque pro kernelpenguin@caricax.software. Facilita a vida se tu já mandares um desenho de como vai ficar; muito trampo por aqui. A ideia é responder ligeiro, mas te acalma e espera umas duas semanas, belê? Ei! E te liga, pô: a ausência de resposta não quer dizer que tá tudo liberado. Não te fresqueia, que silêncio não é "sim". Tendeu?
