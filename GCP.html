@@ -13,13 +13,13 @@
             --google-blue: #4285F4;
         }
         body {
-            font-family: 'hack';
+            font-family: 'Inter', sans-serif;
             background-color: #f0f4f8;
             color: #1e293b;
         }
         .diagram-container {
             position: relative;
-            min-height: 500px; /* Aumentado para dar mais espaço */
+            min-height: 500px;
         }
         .vpc-host {
             position: absolute;
@@ -34,8 +34,8 @@
             transition: all 0.3s ease;
         }
         .sp-1 { top: 0; left: 50%; transform: translateX(-50%); }
-        .sp-2 { top: 50%; left: 0; transform: translateY(-50%) translateX(-20%); } /* Afastado */
-        .sp-3 { top: 50%; right: 0; transform: translateY(-50%) translateX(20%); } /* Afastado */
+        .sp-2 { top: 50%; left: 0; transform: translateY(-50%) translateX(-20%); }
+        .sp-3 { top: 50%; right: 0; transform: translateY(-50%) translateX(20%); }
         .sp-4 { bottom: 0; left: 50%; transform: translateX(-50%); }
         .connector-line {
             position: absolute;
@@ -56,7 +56,6 @@
             border-color: var(--caricax-orange);
             transform: scale(1.05);
         }
-        /* Ajuste para elementos internos não escalarem junto com o pai */
         .interactive-element.active .interactive-element,
         .interactive-element:hover .interactive-element {
             transform: scale(1);
@@ -66,7 +65,6 @@
              transform: scale(1.05);
              border-color: var(--google-blue);
         }
-
         .info-panel-content {
             min-height: 200px;
         }
@@ -80,14 +78,19 @@
         .google-partner-badge .g-text {
             font-weight: 700;
         }
+        .lang-btn { color: #6b7280; }
+        .lang-btn.active-lang {
+            background: linear-gradient(to right, var(--caricax-orange), var(--caricax-green));
+            color: white;
+        }
     </style>
 </head>
 <body class="p-4 md:p-8">
 
     <div class="max-w-7xl mx-auto">
         <header class="text-center mb-10">
-            <h1 class="text-3xl md:text-4xl font-bold text-slate-800 inline-block caricax-text-gradient uppercase">Tutorial Interativo: Projeto Host de VPC</h1>
-            <div class="mt-4 inline-flex items-center justify-center gap-4">
+            <h1 data-lang-key="mainTitle" class="text-3xl md:text-4xl font-bold text-slate-800 inline-block caricax-text-gradient uppercase"></h1>
+            <div class="mt-4 flex items-center justify-center gap-4">
                  <span class="text-lg font-bold caricax-text-gradient">CARICAX</span>
                  <div class="h-6 w-px bg-slate-300"></div>
                 <div class="google-partner-badge inline-flex items-center gap-2 rounded-md bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm border">
@@ -97,89 +100,83 @@
                     </span>
                     <span class="font-semibold text-gray-500">Partner</span>
                 </div>
+                 <div class="h-6 w-px bg-slate-300"></div>
+                <div id="lang-switcher" class="flex rounded-md border bg-white shadow-sm">
+                    <button data-lang="pt" class="lang-btn active-lang px-4 py-1.5 text-sm font-semibold rounded-l-md">Português</button>
+                    <button data-lang="en" class="lang-btn px-4 py-1.5 text-sm font-semibold rounded-r-md">English</button>
+                </div>
             </div>
         </header>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-            <!-- Diagrama Interativo -->
             <div class="card p-6 relative">
-                <h2 class="text-xl font-bold text-center mb-8 text-slate-700 uppercase">Diagrama da Arquitetura</h2>
+                <h2 data-lang-key="diagramTitle" class="text-xl font-bold text-center mb-8 text-slate-700 uppercase"></h2>
                 <div id="diagram" class="diagram-container flex items-center justify-center">
-                    <!-- Linhas Conectoras -->
                     <div class="connector-line" style="width: 2px; height: calc(100% - 100px); left: 50%; top: 50px; transform: translateX(-50%);"></div>
                     <div class="connector-line" style="height: 2px; width: calc(100% - 100px); top: 50%; left: 50px; transform: translateY(-50%);"></div>
-
-                    <!-- Projeto Host -->
                     <div id="vpc-host" class="vpc-host interactive-element card p-4 w-64 flex flex-col items-center justify-center gap-2" data-info="host">
                         <div class="text-center">
-                             <p class="font-bold text-lg" style="color: var(--caricax-orange);">Projeto Host de VPC</p>
+                             <p data-lang-key="vpcHostTitle" class="font-bold text-lg" style="color: var(--caricax-orange);"></p>
                              <p class="text-sm text-slate-500">vpc-host-prod</p>
                         </div>
                         <div class="border-t border-slate-200 w-full my-2"></div>
-                        <!-- Componentes da Rede Movidos para cá -->
                         <div class="text-center w-full space-y-2">
                             <div id="firewall" class="interactive-element inline-block bg-red-100 text-red-800 text-xs font-semibold px-2 py-1 rounded-full w-full" data-info="firewall">
-                                🔥 Regras de Firewall
+                                <span data-lang-key="firewallRules"></span>
                             </div>
                             <div id="subnet" class="interactive-element inline-block bg-sky-100 text-sky-800 text-xs font-semibold px-2 py-1 rounded-full w-full" data-info="subnet">
-                                🌐 Sub-redes Compartilhadas
+                                <span data-lang-key="sharedSubnets"></span>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Projetos de Serviço -->
                     <div id="sp-1" class="service-project sp-1 interactive-element card p-3 w-40 text-center" data-info="service">
-                        <p class="font-semibold" style="color: var(--caricax-green);">Projeto de Serviço</p>
+                        <p data-lang-key="serviceProjectTitle" class="font-semibold" style="color: var(--caricax-green);"></p>
                         <p class="text-xs text-slate-500">webapp-prod</p>
                     </div>
                     <div id="sp-2" class="service-project sp-2 interactive-element card p-3 w-40 text-center" data-info="service">
-                        <p class="font-semibold" style="color: var(--caricax-green);">Projeto de Serviço</p>
+                        <p data-lang-key="serviceProjectTitle" class="font-semibold" style="color: var(--caricax-green);"></p>
                         <p class="text-xs text-slate-500">database-prod</p>
                     </div>
                     <div id="sp-3" class="service-project sp-3 interactive-element card p-3 w-40 text-center" data-info="service">
-                        <p class="font-semibold" style="color: var(--caricax-green);">Projeto de Serviço</p>
+                        <p data-lang-key="serviceProjectTitle" class="font-semibold" style="color: var(--caricax-green);"></p>
                         <p class="text-xs text-slate-500">analytics-prod</p>
                     </div>
                     <div id="sp-4" class="service-project sp-4 interactive-element card p-3 w-40 text-center" data-info="service">
-                         <p class="font-semibold" style="color: var(--caricax-green);">Projeto de Serviço</p>
+                         <p data-lang-key="serviceProjectTitle" class="font-semibold" style="color: var(--caricax-green);"></p>
                         <p class="text-xs text-slate-500">logging-prod</p>
                     </div>
                 </div>
             </div>
-
-            <!-- Painel de Informações -->
             <div class="card p-6">
-                <h2 class="text-xl font-bold mb-4 uppercase" style="color: var(--google-blue);">Painel de Informações</h2>
+                <h2 data-lang-key="infoPanelTitle" class="text-xl font-bold mb-4 uppercase" style="color: var(--google-blue);"></h2>
                 <div id="info-panel" class="info-panel-content text-slate-600 space-y-3">
-                    <h3 id="info-title" class="text-lg font-bold text-slate-800 uppercase">Bem-vindo!</h3>
-                    <p id="info-text">Este é um guia interativo para entender a arquitetura de uma VPC Compartilhada (Shared VPC). Use o diagrama ao lado para explorar os conceitos.</p>
-                    <p>Comece clicando em "Projeto Host de VPC" para ver como a rede central é configurada.</p>
+                    <h3 id="info-title" class="text-lg font-bold text-slate-800 uppercase"></h3>
+                    <p id="info-text"></p>
                 </div>
             </div>
         </div>
 
-        <!-- Guia de Configuração -->
         <div class="card p-6 mt-8">
-            <h2 class="text-2xl font-bold text-center mb-6 text-slate-700 uppercase">Como se parece na prática?</h2>
-            <p class="text-center text-slate-500 mb-8 max-w-2xl mx-auto">A imagem que você compartilhou mostra a configuração do "Projeto Host de VPC". Vamos recriar essa etapa abaixo.</p>
+            <h2 data-lang-key="configGuideTitle" class="text-2xl font-bold text-center mb-6 text-slate-700 uppercase"></h2>
+            <p data-lang-key="configGuideSubtitle" class="text-center text-slate-500 mb-8 max-w-2xl mx-auto"></p>
             <div class="max-w-md mx-auto bg-slate-50 p-6 rounded-lg border border-slate-200">
-                <h3 class="font-bold text-lg mb-4 text-slate-800 uppercase">Criando o Projeto Host</h3>
+                <h3 data-lang-key="createHostProjectTitle" class="font-bold text-lg mb-4 text-slate-800 uppercase"></h3>
                 <div class="space-y-4">
                     <div>
-                        <label class="font-semibold text-sm text-slate-600">Nome do Projeto *</label>
+                        <label data-lang-key="projectNameLabel" class="font-semibold text-sm text-slate-600"></label>
                         <input type="text" value="vpc-host-prod" readonly class="w-full p-2 mt-1 bg-white border border-slate-300 rounded-md focus:outline-none focus:ring-2" style="--tw-ring-color: var(--caricax-orange);">
                     </div>
                      <div>
-                        <label class="font-semibold text-sm text-slate-600">ID do Projeto *</label>
+                        <label data-lang-key="projectIdLabel" class="font-semibold text-sm text-slate-600"></label>
                         <input type="text" value="vpc-host-prod-kw806-no778" readonly class="w-full p-2 mt-1 bg-slate-100 border border-slate-300 rounded-md text-slate-500 cursor-not-allowed">
-                        <p class="text-xs text-slate-500 mt-1">O ID do projeto não pode ser alterado posteriormente.</p>
+                        <p data-lang-key="projectIdNote" class="text-xs text-slate-500 mt-1"></p>
                     </div>
                      <div>
-                        <label class="font-semibold text-sm text-slate-600">Nome da Pasta *</label>
+                        <label data-lang-key="folderNameLabel" class="font-semibold text-sm text-slate-600"></label>
                         <input type="text" value="Common" readonly class="w-full p-2 mt-1 bg-white border border-slate-300 rounded-md focus:outline-none focus:ring-2" style="--tw-ring-color: var(--caricax-orange);">
                     </div>
                     <div class="text-right pt-4">
-                         <button class="text-white font-bold py-2 px-6 rounded-lg bg-gradient-to-r from-[var(--caricax-orange)] to-[var(--caricax-green)] hover:opacity-90 transition-opacity">CONCLUÍDO</button>
+                         <button data-lang-key="doneButton" class="text-white font-bold py-2 px-6 rounded-lg bg-gradient-to-r from-[var(--caricax-orange)] to-[var(--caricax-green)] hover:opacity-90 transition-opacity"></button>
                     </div>
                 </div>
             </div>
@@ -187,36 +184,86 @@
     </div>
 
     <script>
-        const infoContent = {
-            default: {
-                title: 'Bem-vindo!',
-                text: 'Este é um guia interativo para entender a arquitetura de uma VPC Compartilhada (Shared VPC). Use o diagrama ao lado para explorar os conceitos. <br><br>Comece clicando em "Projeto Host de VPC" para ver como a rede central é configurada.'
-            },
-            host: {
-                title: 'Projeto Host de VPC',
-                text: 'Este é o projeto central. Ele "possui" a rede VPC, incluindo sub-redes, rotas e regras de firewall. Ele não executa aplicações, apenas gerencia a infraestrutura de rede que será compartilhada com outros projetos.'
-            },
-            service: {
-                title: 'Projeto de Serviço',
-                text: 'Estes projetos (ex: webapp, database) contêm as máquinas virtuais, bancos de dados e outras aplicações. Eles não possuem sua própria rede, mas sim "usam" a rede compartilhada fornecida pelo Projeto Host. Isso permite que se comuniquem de forma segura e privada.'
-            },
-            firewall: {
-                title: 'Regras de Firewall',
-                text: 'As regras de firewall são definidas centralmente no Projeto Host. Elas controlam o tráfego de entrada e saída para todos os recursos nos Projetos de Serviço, garantindo que políticas de segurança consistentes sejam aplicadas em toda a organização.'
-            },
-            subnet: {
-                title: 'Sub-redes Compartilhadas',
-                text: 'As sub-redes (ex: 10.0.1.0/24) são criadas no Projeto Host e depois compartilhadas com os Projetos de Serviço. Os recursos nos projetos de serviço recebem endereços IP dessas sub-redes, permitindo a comunicação interna.'
-            }
-        };
-
+        let currentLang = 'pt';
         const infoTitle = document.getElementById('info-title');
         const infoText = document.getElementById('info-text');
         const interactiveElements = document.querySelectorAll('.interactive-element');
         let activeElement = null;
 
+        const translations = {
+            pt: {
+                mainTitle: 'Tutorial Interativo: Projeto Host de VPC',
+                diagramTitle: 'Diagrama da Arquitetura',
+                vpcHostTitle: 'Projeto Host de VPC',
+                serviceProjectTitle: 'Projeto de Serviço',
+                firewallRules: '🔥 Regras de Firewall',
+                sharedSubnets: '🌐 Sub-redes Compartilhadas',
+                infoPanelTitle: 'Painel de Informações',
+                configGuideTitle: 'Como se parece na prática?',
+                configGuideSubtitle: 'A imagem que você compartilhou mostra a configuração do "Projeto Host de VPC". Vamos recriar essa etapa abaixo.',
+                createHostProjectTitle: 'Criando o Projeto Host',
+                projectNameLabel: 'Nome do Projeto *',
+                projectIdLabel: 'ID do Projeto *',
+                projectIdNote: 'O ID do projeto não pode ser alterado posteriormente.',
+                folderNameLabel: 'Nome da Pasta *',
+                doneButton: 'CONCLUÍDO',
+                infoContent: {
+                    default: { title: 'Bem-vindo!', text: 'Este é um guia interativo para entender a arquitetura de uma VPC Compartilhada (Shared VPC). Use o diagrama ao lado para explorar os conceitos. <br><br>Comece clicando em "Projeto Host de VPC" para ver como a rede central é configurada.' },
+                    host: { title: 'Projeto Host de VPC', text: 'Este é o projeto central. Ele "possui" a rede VPC, incluindo sub-redes, rotas e regras de firewall. Ele não executa aplicações, apenas gerencia a infraestrutura de rede que será compartilhada com outros projetos.' },
+                    service: { title: 'Projeto de Serviço', text: 'Estes projetos (ex: webapp, database) contêm as máquinas virtuais, bancos de dados e outras aplicações. Eles não possuem sua própria rede, mas sim "usam" a rede compartilhada fornecida pelo Projeto Host. Isso permite que se comuniquem de forma segura e privada.' },
+                    firewall: { title: 'Regras de Firewall', text: 'As regras de firewall são definidas centralmente no Projeto Host. Elas controlam o tráfego de entrada e saída para todos os recursos nos Projetos de Serviço, garantindo que políticas de segurança consistentes sejam aplicadas em toda a organização.' },
+                    subnet: { title: 'Sub-redes Compartilhadas', text: 'As sub-redes (ex: 10.0.1.0/24) são criadas no Projeto Host e depois compartilhadas com os Projetos de Serviço. Os recursos nos projetos de serviço recebem endereços IP dessas sub-redes, permitindo a comunicação interna.' }
+                }
+            },
+            en: {
+                mainTitle: 'Interactive Tutorial: VPC Host Project',
+                diagramTitle: 'Architecture Diagram',
+                vpcHostTitle: 'VPC Host Project',
+                serviceProjectTitle: 'Service Project',
+                firewallRules: '🔥 Firewall Rules',
+                sharedSubnets: '🌐 Shared Subnets',
+                infoPanelTitle: 'Information Panel',
+                configGuideTitle: 'How does it look in practice?',
+                configGuideSubtitle: 'The image you shared shows the "VPC Host Project" configuration. Let\'s recreate that step below.',
+                createHostProjectTitle: 'Creating the Host Project',
+                projectNameLabel: 'Project Name *',
+                projectIdLabel: 'Project ID *',
+                projectIdNote: 'The Project ID cannot be changed later.',
+                folderNameLabel: 'Folder Name *',
+                doneButton: 'DONE',
+                infoContent: {
+                    default: { title: 'Welcome!', text: 'This is an interactive guide to understand the Shared VPC architecture. Use the diagram to explore the concepts. <br><br>Start by clicking on "VPC Host Project" to see how the central network is configured.' },
+                    host: { title: 'VPC Host Project', text: 'This is the central project. It "owns" the VPC network, including subnets, routes, and firewall rules. It does not run applications, it only manages the network infrastructure that will be shared with other projects.' },
+                    service: { title: 'Service Project', text: 'These projects (e.g., webapp, database) contain the virtual machines, databases, and other applications. They do not have their own network, but rather "use" the shared network provided by the Host Project. This allows them to communicate securely and privately.' },
+                    firewall: { title: 'Firewall Rules', text: 'Firewall rules are defined centrally in the Host Project. They control inbound and outbound traffic for all resources in the Service Projects, ensuring consistent security policies are applied across the organization.' },
+                    subnet: { title: 'Shared Subnets', text: 'Subnets (e.g., 10.0.1.0/24) are created in the Host Project and then shared with the Service Projects. Resources in the service projects receive IP addresses from these subnets, allowing internal communication.' }
+                }
+            }
+        };
+
+        function setLanguage(lang) {
+            if (!translations[lang]) return;
+            currentLang = lang;
+
+            document.querySelectorAll('[data-lang-key]').forEach(el => {
+                const key = el.dataset.langKey;
+                const parent = el.parentElement;
+
+                if (key === 'serviceProjectTitle' && parent.dataset.info === 'service') {
+                     // Handle multiple elements with the same key
+                    el.innerHTML = translations[lang][key];
+                } else if (translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+            
+            // Update info panel
+            const activeInfoKey = activeElement ? activeElement.dataset.info : 'default';
+            updateInfoPanel(activeInfoKey);
+        }
+
         function updateInfoPanel(key) {
-            const content = infoContent[key] || infoContent.default;
+            const content = translations[currentLang].infoContent[key] || translations[currentLang].infoContent.default;
             infoTitle.textContent = content.title.toUpperCase();
             infoText.innerHTML = content.text;
         }
@@ -224,19 +271,12 @@
         interactiveElements.forEach(el => {
             el.addEventListener('click', (e) => {
                 e.stopPropagation();
-                
                 const currentKey = el.dataset.info;
-                
-                // Desativa o elemento anterior se houver
-                if (activeElement) {
-                    activeElement.classList.remove('active');
-                }
-
-                // Se o elemento clicado é o mesmo que estava ativo, desativa tudo
+                if (activeElement) activeElement.classList.remove('active');
                 if (activeElement === el) {
                     activeElement = null;
                     updateInfoPanel('default');
-                } else { // Ativa o novo elemento
+                } else {
                     el.classList.add('active');
                     activeElement = el;
                     updateInfoPanel(currentKey);
@@ -252,11 +292,20 @@
              updateInfoPanel('default');
         });
 
-        // Initialize with default content
-        updateInfoPanel('default');
+        document.getElementById('lang-switcher').addEventListener('click', (e) => {
+            if (e.target.matches('.lang-btn')) {
+                const lang = e.target.dataset.lang;
+                setLanguage(lang);
+                document.querySelectorAll('.lang-btn').forEach(btn => {
+                    btn.classList.toggle('active-lang', btn.dataset.lang === lang);
+                });
+            }
+        });
+        
+        // Initial load
+        setLanguage(currentLang);
 
     </script>
-
 </body>
 </html>
 
