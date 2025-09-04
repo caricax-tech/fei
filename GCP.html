@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial Interativo de VPC Host Project</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --caricax-green: #08c408;
+            --caricax-orange: #fe6d03;
+            --google-blue: #4285F4;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+            color: #1e293b;
+        }
+        .diagram-container {
+            position: relative;
+            min-height: 500px; /* Aumentado para dar mais espaço */
+        }
+        .vpc-host {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+        }
+        .service-project {
+            position: absolute;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+        .sp-1 { top: 0; left: 50%; transform: translateX(-50%); }
+        .sp-2 { top: 50%; left: 0; transform: translateY(-50%) translateX(-20%); } /* Afastado */
+        .sp-3 { top: 50%; right: 0; transform: translateY(-50%) translateX(20%); } /* Afastado */
+        .sp-4 { bottom: 0; left: 50%; transform: translateX(-50%); }
+        .connector-line {
+            position: absolute;
+            background-color: #cbd5e1;
+            z-index: 1;
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: all 0.3s ease;
+        }
+        .interactive-element {
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        .interactive-element:hover, .interactive-element.active {
+            border-color: var(--caricax-orange);
+            transform: scale(1.05);
+        }
+        /* Ajuste para elementos internos não escalarem junto com o pai */
+        .interactive-element.active .interactive-element,
+        .interactive-element:hover .interactive-element {
+            transform: scale(1);
+        }
+        .interactive-element:hover .interactive-element:hover,
+        .interactive-element.active .interactive-element:hover {
+             transform: scale(1.05);
+             border-color: var(--google-blue);
+        }
+
+        .info-panel-content {
+            min-height: 200px;
+        }
+        .caricax-text-gradient {
+            background: linear-gradient(to right, var(--caricax-orange), var(--caricax-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+        .google-partner-badge .g-text {
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-7xl mx-auto">
+        <header class="text-center mb-10">
+            <h1 class="text-3xl md:text-4xl font-bold text-slate-800 inline-block caricax-text-gradient uppercase">Tutorial Interativo: Projeto Host de VPC</h1>
+            <div class="mt-4 inline-flex items-center justify-center gap-4">
+                 <span class="text-lg font-bold caricax-text-gradient">CARICAX</span>
+                 <div class="h-6 w-px bg-slate-300"></div>
+                <div class="google-partner-badge inline-flex items-center gap-2 rounded-md bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm border">
+                    <span class="g-text">
+                        <span style="color: #4285F4;">G</span><span style="color: #DB4437;">o</span><span style="color: #F4B400;">o</span><span style="color: #4285F4;">g</span><span style="color: #0F9D58;">l</span><span style="color: #DB4437;">e</span>
+                        Cloud
+                    </span>
+                    <span class="font-semibold text-gray-500">Partner</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+            <!-- Diagrama Interativo -->
+            <div class="card p-6 relative">
+                <h2 class="text-xl font-bold text-center mb-8 text-slate-700 uppercase">Diagrama da Arquitetura</h2>
+                <div id="diagram" class="diagram-container flex items-center justify-center">
+                    <!-- Linhas Conectoras -->
+                    <div class="connector-line" style="width: 2px; height: calc(100% - 100px); left: 50%; top: 50px; transform: translateX(-50%);"></div>
+                    <div class="connector-line" style="height: 2px; width: calc(100% - 100px); top: 50%; left: 50px; transform: translateY(-50%);"></div>
+
+                    <!-- Projeto Host -->
+                    <div id="vpc-host" class="vpc-host interactive-element card p-4 w-64 flex flex-col items-center justify-center gap-2" data-info="host">
+                        <div class="text-center">
+                             <p class="font-bold text-lg" style="color: var(--caricax-orange);">Projeto Host de VPC</p>
+                             <p class="text-sm text-slate-500">vpc-host-prod</p>
+                        </div>
+                        <div class="border-t border-slate-200 w-full my-2"></div>
+                        <!-- Componentes da Rede Movidos para cá -->
+                        <div class="text-center w-full space-y-2">
+                            <div id="firewall" class="interactive-element inline-block bg-red-100 text-red-800 text-xs font-semibold px-2 py-1 rounded-full w-full" data-info="firewall">
+                                🔥 Regras de Firewall
+                            </div>
+                            <div id="subnet" class="interactive-element inline-block bg-sky-100 text-sky-800 text-xs font-semibold px-2 py-1 rounded-full w-full" data-info="subnet">
+                                🌐 Sub-redes Compartilhadas
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Projetos de Serviço -->
+                    <div id="sp-1" class="service-project sp-1 interactive-element card p-3 w-40 text-center" data-info="service">
+                        <p class="font-semibold" style="color: var(--caricax-green);">Projeto de Serviço</p>
+                        <p class="text-xs text-slate-500">webapp-prod</p>
+                    </div>
+                    <div id="sp-2" class="service-project sp-2 interactive-element card p-3 w-40 text-center" data-info="service">
+                        <p class="font-semibold" style="color: var(--caricax-green);">Projeto de Serviço</p>
+                        <p class="text-xs text-slate-500">database-prod</p>
+                    </div>
+                    <div id="sp-3" class="service-project sp-3 interactive-element card p-3 w-40 text-center" data-info="service">
+                        <p class="font-semibold" style="color: var(--caricax-green);">Projeto de Serviço</p>
+                        <p class="text-xs text-slate-500">analytics-prod</p>
+                    </div>
+                    <div id="sp-4" class="service-project sp-4 interactive-element card p-3 w-40 text-center" data-info="service">
+                         <p class="font-semibold" style="color: var(--caricax-green);">Projeto de Serviço</p>
+                        <p class="text-xs text-slate-500">logging-prod</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Painel de Informações -->
+            <div class="card p-6">
+                <h2 class="text-xl font-bold mb-4 uppercase" style="color: var(--google-blue);">Painel de Informações</h2>
+                <div id="info-panel" class="info-panel-content text-slate-600 space-y-3">
+                    <h3 id="info-title" class="text-lg font-bold text-slate-800 uppercase">Bem-vindo!</h3>
+                    <p id="info-text">Este é um guia interativo para entender a arquitetura de uma VPC Compartilhada (Shared VPC). Use o diagrama ao lado para explorar os conceitos.</p>
+                    <p>Comece clicando em "Projeto Host de VPC" para ver como a rede central é configurada.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Guia de Configuração -->
+        <div class="card p-6 mt-8">
+            <h2 class="text-2xl font-bold text-center mb-6 text-slate-700 uppercase">Como se parece na prática?</h2>
+            <p class="text-center text-slate-500 mb-8 max-w-2xl mx-auto">A imagem que você compartilhou mostra a configuração do "Projeto Host de VPC". Vamos recriar essa etapa abaixo.</p>
+            <div class="max-w-md mx-auto bg-slate-50 p-6 rounded-lg border border-slate-200">
+                <h3 class="font-bold text-lg mb-4 text-slate-800 uppercase">Criando o Projeto Host</h3>
+                <div class="space-y-4">
+                    <div>
+                        <label class="font-semibold text-sm text-slate-600">Nome do Projeto *</label>
+                        <input type="text" value="vpc-host-prod" readonly class="w-full p-2 mt-1 bg-white border border-slate-300 rounded-md focus:outline-none focus:ring-2" style="--tw-ring-color: var(--caricax-orange);">
+                    </div>
+                     <div>
+                        <label class="font-semibold text-sm text-slate-600">ID do Projeto *</label>
+                        <input type="text" value="vpc-host-prod-kw806-no778" readonly class="w-full p-2 mt-1 bg-slate-100 border border-slate-300 rounded-md text-slate-500 cursor-not-allowed">
+                        <p class="text-xs text-slate-500 mt-1">O ID do projeto não pode ser alterado posteriormente.</p>
+                    </div>
+                     <div>
+                        <label class="font-semibold text-sm text-slate-600">Nome da Pasta *</label>
+                        <input type="text" value="Common" readonly class="w-full p-2 mt-1 bg-white border border-slate-300 rounded-md focus:outline-none focus:ring-2" style="--tw-ring-color: var(--caricax-orange);">
+                    </div>
+                    <div class="text-right pt-4">
+                         <button class="text-white font-bold py-2 px-6 rounded-lg bg-gradient-to-r from-[var(--caricax-orange)] to-[var(--caricax-green)] hover:opacity-90 transition-opacity">CONCLUÍDO</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const infoContent = {
+            default: {
+                title: 'Bem-vindo!',
+                text: 'Este é um guia interativo para entender a arquitetura de uma VPC Compartilhada (Shared VPC). Use o diagrama ao lado para explorar os conceitos. <br><br>Comece clicando em "Projeto Host de VPC" para ver como a rede central é configurada.'
+            },
+            host: {
+                title: 'Projeto Host de VPC',
+                text: 'Este é o projeto central. Ele "possui" a rede VPC, incluindo sub-redes, rotas e regras de firewall. Ele não executa aplicações, apenas gerencia a infraestrutura de rede que será compartilhada com outros projetos.'
+            },
+            service: {
+                title: 'Projeto de Serviço',
+                text: 'Estes projetos (ex: webapp, database) contêm as máquinas virtuais, bancos de dados e outras aplicações. Eles não possuem sua própria rede, mas sim "usam" a rede compartilhada fornecida pelo Projeto Host. Isso permite que se comuniquem de forma segura e privada.'
+            },
+            firewall: {
+                title: 'Regras de Firewall',
+                text: 'As regras de firewall são definidas centralmente no Projeto Host. Elas controlam o tráfego de entrada e saída para todos os recursos nos Projetos de Serviço, garantindo que políticas de segurança consistentes sejam aplicadas em toda a organização.'
+            },
+            subnet: {
+                title: 'Sub-redes Compartilhadas',
+                text: 'As sub-redes (ex: 10.0.1.0/24) são criadas no Projeto Host e depois compartilhadas com os Projetos de Serviço. Os recursos nos projetos de serviço recebem endereços IP dessas sub-redes, permitindo a comunicação interna.'
+            }
+        };
+
+        const infoTitle = document.getElementById('info-title');
+        const infoText = document.getElementById('info-text');
+        const interactiveElements = document.querySelectorAll('.interactive-element');
+        let activeElement = null;
+
+        function updateInfoPanel(key) {
+            const content = infoContent[key] || infoContent.default;
+            infoTitle.textContent = content.title.toUpperCase();
+            infoText.innerHTML = content.text;
+        }
+
+        interactiveElements.forEach(el => {
+            el.addEventListener('click', (e) => {
+                e.stopPropagation();
+                
+                const currentKey = el.dataset.info;
+                
+                // Desativa o elemento anterior se houver
+                if (activeElement) {
+                    activeElement.classList.remove('active');
+                }
+
+                // Se o elemento clicado é o mesmo que estava ativo, desativa tudo
+                if (activeElement === el) {
+                    activeElement = null;
+                    updateInfoPanel('default');
+                } else { // Ativa o novo elemento
+                    el.classList.add('active');
+                    activeElement = el;
+                    updateInfoPanel(currentKey);
+                }
+            });
+        });
+        
+        document.getElementById('diagram').addEventListener('click', () => {
+             if(activeElement) {
+                activeElement.classList.remove('active');
+                activeElement = null;
+             }
+             updateInfoPanel('default');
+        });
+
+        // Initialize with default content
+        updateInfoPanel('default');
+
+    </script>
+
+</body>
+</html>
+
